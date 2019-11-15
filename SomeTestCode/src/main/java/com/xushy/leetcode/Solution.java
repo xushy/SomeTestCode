@@ -27,7 +27,7 @@ public class Solution {
 		// snapshotArr.set(1, 4);
 		// System.out.println(firstBadVersion(3));
 		// Collections.sort(list);
-		int[] nums1 = { 0, 1, 2, 2, 3, 0, 4, 2 };
+		int[] nums1 = { 9, 9, 9 };
 		int[] nums2 = { 3, 4 };
 
 		String command1 = "URRURRR";
@@ -39,7 +39,7 @@ public class Solution {
 		// int[][] aa1 = { {} };
 		// System.out.println(robot(command, aa1, 3, 2));
 		int[][] aa2 = { { 2, 2 } };
-		System.out.println(myPow(2, 10));
+		System.out.println();
 		// int[][] aa3 = { { 4, 2 } };
 		// System.out.println(robot(command, aa2, 3, 2));
 		// System.out.println(robot(command1, aa, 4915, 1966));
@@ -739,5 +739,24 @@ public class Solution {
 			x *= x;
 		}
 		return n > 0 ? ret : 1 / ret;
+	}
+
+	// 66. 加一
+	public static int[] plusOne(int[] digits) {
+		for (int i = digits.length - 1; i >= 0; i--) {
+			if (digits[i] != 9) {
+				digits[i]++;
+				break;
+			} else {
+				digits[i] = 0;
+				if (i == 0) {
+					int[] copy = new int[digits.length + 1];
+					System.arraycopy(digits, 0, copy, 1, digits.length);
+					copy[0] = 1;
+					return copy;
+				}
+			}
+		}
+		return digits;
 	}
 }
