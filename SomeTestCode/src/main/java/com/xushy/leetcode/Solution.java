@@ -34,12 +34,12 @@ public class Solution {
 		int[][] aa = { { 7, 7 }, { 0, 5 }, { 2, 7 }, { 8, 6 }, { 8, 7 },
 				{ 6, 5 }, { 4, 4 }, { 0, 3 }, { 3, 6 } };
 		// quickSort(nums2);
-		long start = new Date().getTime();
+		long start = System.nanoTime();
 		String command = "URR";
 		// int[][] aa1 = { {} };
 		// System.out.println(robot(command, aa1, 3, 2));
 		int[][] aa2 = { { 2, 2 } };
-		System.out.println();
+		System.out.println(climbStairs(35));
 		// int[][] aa3 = { { 4, 2 } };
 		// System.out.println(robot(command, aa2, 3, 2));
 		// System.out.println(robot(command1, aa, 4915, 1966));
@@ -758,5 +758,29 @@ public class Solution {
 			}
 		}
 		return digits;
+	}
+
+	// C(min,1)+C(min,2)+...+C(min,min)= min*(min-1)*...*i/i*(i-1)*...1
+	// 5 11111 2111 1211 1121 1112 221 212 122
+	// 6 111111 21111 12111 11211 11121 11112 2211 1221 1122 2121 2112 1212 222
+	public static int climbStairs(int n) {
+		int min = n / 2;
+		int count = 0;
+		for (int i = min; i >= 1; i--) {
+			count += cal(n - i, i);
+		}
+		return count + 1;
+	}
+
+	public static int cal(int min, int i) {
+		long a = 1;
+		long b = 1;
+		for (int j = i + 1; j <= min; j++) {
+			a *= j;
+		}
+		for (int j = 1; j <= min - i; j++) {
+			b *= j;
+		}
+		return (int) (a / b);
 	}
 }
