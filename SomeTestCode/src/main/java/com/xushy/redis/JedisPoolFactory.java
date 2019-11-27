@@ -17,25 +17,14 @@ import redis.clients.jedis.JedisPoolConfig;
  * */
 public class JedisPoolFactory {
 	private static Logger logger = LoggerFactory.getLogger(JedisPoolFactory.class);
-	@Getter
-	private JedisPool jedisPool;
-	private JedisPoolConfig jedisPoolConfig;
+	private static JedisPool jedisPool;
+	private static JedisPoolConfig jedisPoolConfig;
 	
 	private JedisPoolFactory() {
-		jedisPoolConfig = new JedisPoolConfig();
-		//默认为8
-		jedisPoolConfig.setMaxTotal(10);
-		//默认为8
-		jedisPoolConfig.setMaxIdle(10);
-		//默认为0
-		jedisPoolConfig.setMinIdle(0);
-		//默认-1L 表示永不超时 
-		jedisPoolConfig.setMaxWaitMillis(10000L);
-		jedisPool = new JedisPool(jedisPoolConfig, "127.0.0.1", 6379, 1000/*,密码*/);
-		preheat();
+		
     }
 
-    private void preheat() {
+    private static void preheat() {
     	List<Jedis> minIdleJedisList = new ArrayList<Jedis>(jedisPoolConfig.getMinIdle());
     	for (int i = 0; i < jedisPoolConfig.getMinIdle(); i++) {
     	    Jedis jedis = null;
@@ -64,14 +53,22 @@ public class JedisPoolFactory {
 	public enum Instance{
         INSTANCE;
         
-        private JedisPoolFactory factory;
-        
         Instance() {
-        	factory = new JedisPoolFactory();
+        	jedisPoolConfig = new JedisPoolConfig();
+    		//默认为8
+    		jedisPoolConfig.setMaxTotal(10);
+    		//默认为8
+    		jedisPoolConfig.setMaxIdle(10);
+    		//默认为0
+    		jedisPoolConfig.setMinIdle(0);
+    		//默认-1L 表示永不超时 
+    		jedisPoolConfig.setMaxWaitMillis(10000L);
+    		jedisPool = new JedisPool(jedisPoolConfig, "127.0.0.1", 6379, 1000/*,密码*/);
+    		preheat();
         }
         
-        public JedisPoolFactory getFactory(){
-            return factory;
+        public JedisPool getJedisPool(){
+            return jedisPool;
         }
     }
 }
