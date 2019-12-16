@@ -1,5 +1,6 @@
 package com.xushy.designpatterns.reschain;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data

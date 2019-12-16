@@ -16,10 +16,6 @@ import redis.clients.jedis.Tuple;
  * @description redis 实现游戏排行 使用reids命令 1.zadd 2.zrevrangeWithScores 分数从高到低 3.zrangeWithScores 分数从低到高
  * @date 2019年11月27日
  */
-/**
- * @author Administrator
- * @date 2019年11月27日
- */
 public class GameRank {
     private static String[] surNames = new String[] {"赵", "钱", "孙", "李", "周"};
     private static String[] finalNames = new String[] {"一", "三", "五", "七", "九"};
